@@ -14,11 +14,17 @@ export class ServerlessShipStack extends cdk.Stack {
         name: "id",
         type: AttributeType.STRING,
       },
+      tableName: "ServerlessShipTable",
     });
 
     const handler = new NodejsFunction(this, "ServerlessShipFunction", {
       entry: join(__dirname, "/../src/handler.ts"),
+      environment: {
+        TABLE_NAME: table.tableName,
+      },
     });
+
+    table.grantWriteData(handler);
 
     const api = new LambdaRestApi(this, "ServerlessShipApi", {
       handler: handler,
