@@ -22,7 +22,7 @@ jobs:
     - name: Setup Node
       uses: actions/setup-node@v2.4.1
       with:
-        cache: 'yarn'
+        cache: 'npm'
         node-version: '16'
 
     - name: Install dependencies
