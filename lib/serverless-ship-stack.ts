@@ -1,8 +1,8 @@
 import * as cdk from "aws-cdk-lib";
 import { Construct } from "constructs";
-import { LambdaRestApi } from "aws-cdk-lib/aws-apigateway";
 import { AttributeType, Table } from "aws-cdk-lib/aws-dynamodb";
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
+import { LambdaRestApi } from "aws-cdk-lib/aws-apigateway";
 import { join } from "path";
 
 export class ServerlessShipStack extends cdk.Stack {
@@ -14,7 +14,7 @@ export class ServerlessShipStack extends cdk.Stack {
         name: "id",
         type: AttributeType.STRING,
       },
-      tableName: "ServerlessShipTable",
+      tableName: "serverless-ship-table",
     });
 
     const handler = new NodejsFunction(this, "ServerlessShipFunction", {
@@ -26,7 +26,7 @@ export class ServerlessShipStack extends cdk.Stack {
 
     table.grantWriteData(handler);
 
-    const api = new LambdaRestApi(this, "ServerlessShipApi", {
+    new LambdaRestApi(this, "ServerlessShipApi", {
       handler: handler,
     });
   }

@@ -2,7 +2,7 @@ import { APIGatewayEvent } from "aws-lambda";
 import { DynamoDBClient, PutItemCommand } from "@aws-sdk/client-dynamodb";
 import { nanoid } from "nanoid";
 
-export const dynamoDBClient = new DynamoDBClient({
+const dynamoDBClient = new DynamoDBClient({
   region: process.env.AWS_REGION,
 });
 
@@ -19,7 +19,7 @@ export const handler = async (event: APIGatewayEvent) => {
   try {
     await dynamoDBClient.send(putItemCommand);
 
-    console.info(`Put item ${id} in ${process.env.TABLE_NAME}`);
+    console.info(`Put item ${id} to ${process.env.TABLE_NAME}`);
   } catch (error) {
     console.error(error);
 
